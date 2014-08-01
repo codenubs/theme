@@ -1,0 +1,6 @@
+name = Codenubs
+description = Technological knowledge sharing website
+author = Garlic
+website = http://www.codenubs.com
+version = 1.0
+min-require = 2.0

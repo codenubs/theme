@@ -1,0 +1,42 @@
+<div id="blog-single" class="blog-container">
+    
+    <section class="featured-image">
+        {{ if($blog->has_feature_image) }}
+            <img src="{{ $blog->feature_image }}" alt="{{ $blog->title }}">
+        {{ endif }}
+    </section> <!-- end of featured-image -->
+
+    <div class="blog-info relative">
+        
+        <div class="author absolute">
+            {{ $blog->author->profileImage(100) }}
+        </div> <!-- end of author absolute -->
+
+        <!-- <i class="fa fa-calendar"></i>
+        <a href="{{ url('blog/archive/' . $blog->post_date('Y') . '/' . $blog->post_date('m')) }}">
+            {{ $blog->post_date('j M, Y') }}
+        </a>
+        <i class="fa fa-folder-open"></i>
+        <a href="{{ $blog->category_url }}">
+            {{ $blog->category_name }}
+        </a> -->
+
+    </div> <!-- end of blog-info relative -->
+
+    <article id="blog">
+        
+        <header class="blog-header">
+            
+            <h1>{{ $blog->title }}</h1>
+
+        </header> <!-- end of blog-header -->
+
+        <div class="blog-content">
+            
+            {{ $blog->content }}
+
+        </div> <!-- end of blog-body -->
+
+    </article> <!-- end of blog -->
+
+</div> <!-- end of blog-container -->

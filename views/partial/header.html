@@ -1,0 +1,31 @@
+    <header id="nub-header">
+        
+        <div class="container middle clearfix">
+            <div id="logo" class="left">Codenub</div>
+
+            <div class="right">
+                
+                <nav class="nav">
+                    <li class='has-submenu'>
+                        <a href="#">
+                            Categories
+                        </a>
+                        <ul class="level-1">
+                            {{ Blog::categories() }}
+                        </ul> <!-- end of level-1 -->
+                    </li> <!-- end of has-submenu -->
+                    <li>
+                        <a href="#">
+                            About
+                        </a>
+                    </li>
+                </nav> <!-- end of nav -->
+
+                <div id="search"></div>
+
+            </div> <!-- end of right -->
+                
+            </div> <!-- end of search -->
+        </div> <!-- end of container -->
+
+    </header> <!-- end of nub-header -->

@@ -1,0 +1,50 @@
+{{ if(count($blogs) > 0) }}
+
+    {{ loop($blogs as $blog) }}
+
+    <div class="blog-container">
+        
+        <section class="featured-image">
+            {{ if($blog->has_feature_image) }}
+                <img src="{{ $blog->feature_image }}" alt="{{ $blog->title }}">
+            {{ endif }}
+        </section> <!-- end of featured-image -->
+
+        <section class="blog-body clearfix">
+            <aside class="blog-info left relative">
+                <div class="author absolute">
+                    {{ $blog->author->profileImage(100) }}
+                </div> <!-- end of author -->
+
+                <i class="fa fa-calendar"></i>
+                <a href="{{ url('blog/archive/' . $blog->post_date('Y') . '/' . $blog->post_date('m')) }}">
+                    {{ $blog->post_date('j M, Y') }}
+                </a> <br>
+                <i class="fa fa-folder-open"></i>
+                <a href="{{ $blog->category_url }}">
+                    {{ $blog->category_name }}
+                </a>
+
+            </aside> <!-- end of blog-info -->
+
+            <article class="blogs right">
+
+                <header class="blog-header">
+
+                    <h2><a href="{{ $blog->url }}">{{ $blog->title }}</a></h2>
+
+                </header> <!-- end of blog-header -->
+
+                <p class="blog-excerpt">
+                    {{ $blog->excerpt }}
+                </p>
+            </article> <!-- end of blogs -->
+        </section> <!-- end of blog-excerpt -->
+
+    </div> <!-- end of blog-container -->
+
+    {{ endloop }}
+
+{{ else }}
+    {{ "NO POST" }}
+{{ endif }}
