@@ -2,7 +2,13 @@
     
     <section class="featured-image">
         {{ if($blog->has_feature_image) }}
+
             <img src="{{ $blog->feature_image }}" alt="{{ $blog->title }}">
+
+        {{ else }}
+
+            {{ img('featured_img.png', $blog->title) }}
+
         {{ endif }}
     </section> <!-- end of featured-image -->
         
