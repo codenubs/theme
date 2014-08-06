@@ -1,0 +1,33 @@
+<div id="comment_form_wrapper">
+    <div id="reply_info"></div>
+    {{ Form::start('comment/post', 'comment_form') }}
+        {{ if (!\Auth::check()) }}
+            
+            <div id="wrap-one" class="clearfix">
+                {{ Form::input('name', '', 'text', array('required' => 'required', 'placeholder' => 'Name', 'class' => 'cmt-fields left boxsize')) }}
+
+                {{ Form::email('email', '', array('required' => 'required', 'placeholder' => 'Email', 'class' => 'cmt-fields left boxsize')) }}
+
+                {{ Form::url('url', '', array('placeholder' => 'Website', 'class' => 'cmt-fields right boxsize')) }}
+            </div> <!-- end of wrap one -->
+
+        {{ else }}
+            {= $user = \Auth::getUser() =}
+            <div id="login_info">
+                {= $cmt_author = "<a href='". rbUrl('user/profile/'.$user->id) ."' target='_blank'>" . $user->first_name . " " . $user->last_name . "</a>" =}
+                {{ t('comment::comment.label.post_comment_as', array('name' => $cmt_author)) }}
+                <a href="{{ rbUrl('user/logout') }}" id="logout_link">{{ t('comment::comment.label.logout') }}</a>
+            </div>  
+        {{ endif }}
+            {{ Form::hidden(Setting::get('spam_filter')) }}
+            {{ Form::hidden('parent_id', '') }}
+            {{ Form::hidden('module', $module) }}
+            {{ Form::hidden('content_id', $content_id) }}
+            
+            {{ Form::textarea('message', '', array('class' => 'left boxsize', 'placeholder' => 'Message')) }}
+
+            <div class="form_action">
+                {{ Form::submit('comment_submit', t('global.submit'), array('class' => 'btn btn-blue')) }}
+            </div>
+    {{ Form::end() }}
+</div> <!-- end of comment_form_wrapper -->

@@ -1,27 +1,14 @@
-<div id="blog-single" class="blog-container">
+<div id="blog-single" class="blog-container relative">
     
     <section class="featured-image">
         {{ if($blog->has_feature_image) }}
             <img src="{{ $blog->feature_image }}" alt="{{ $blog->title }}">
         {{ endif }}
     </section> <!-- end of featured-image -->
-
-    <div class="blog-info relative">
         
-        <div class="author absolute">
-            {{ $blog->author->profileImage(100) }}
-        </div> <!-- end of author absolute -->
-
-        <!-- <i class="fa fa-calendar"></i>
-        <a href="{{ url('blog/archive/' . $blog->post_date('Y') . '/' . $blog->post_date('m')) }}">
-            {{ $blog->post_date('j M, Y') }}
-        </a>
-        <i class="fa fa-folder-open"></i>
-        <a href="{{ $blog->category_url }}">
-            {{ $blog->category_name }}
-        </a> -->
-
-    </div> <!-- end of blog-info relative -->
+    <div class="author absolute">
+        {{ $blog->author->profileImage(100) }}
+    </div> <!-- end of author absolute -->
 
     <article id="blog">
         
@@ -31,12 +18,47 @@
 
         </header> <!-- end of blog-header -->
 
-        <div class="blog-content">
+        <section id="blog-information" class='clearfix'>
+
+            <div id="blog-author" class='left'>
+                <i class="fa fa-calendar"></i>
+                <a href="{{ url('blog/archive/' . $blog->post_date('Y') . '/' . $blog->post_date('m')) }}">
+                    {{ $blog->post_date('j M, Y') }}
+                </a>
+            </div> <!-- end of blog-author -->
+
+            <div id="blog-date" class='left'>
+                <i class="fa fa-folder-open"></i>
+                <a href="{{ $blog->category_url }}">
+                    {{ $blog->category_name }}
+                </a>
+            </div> <!-- end of blog-date -->
+
+            {{ if($blog->has_tags) }}
+                <div id="blog-tag" class='left'>
+                    <i class="fa fa-tags"></i>
+                    {{ $blog->tags(' #') }}
+                </div> <!-- end of blog-tag -->
+            {{ endif }}
+
+        </section> <!-- end of blog-information -->
+
+        <section id="blog-content">
             
             {{ $blog->content }}
 
-        </div> <!-- end of blog-body -->
+        </section> <!-- end of blog-body -->
+
+        {{ include:social }}
+
+        <section id="blog-comment">
+            {{ if (\Module::isEnabled('comment')) }}
+                {{ Comment::get($blog->id, 'blog', $blog->comment_status) }}
+            {{ endif }}
+        </section> <!-- end of blog-comment -->
 
     </article> <!-- end of blog -->
 
 </div> <!-- end of blog-container -->
+
+<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>

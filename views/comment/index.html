@@ -1,0 +1,125 @@
+{{ if (\Setting::get('comment_enable') == 'enable') }}
+
+<h3>Comments</h3>
+
+{{ $comment_form }}
+
+{{ if ($total_comments > 0) }}
+    
+    <ul class="comments_wrapper" style="list-style:none;">
+        {{ loop ($comments as $comment) }}
+            {{ Comment\Lib\Helper::singleComment($comment) }}
+            {{ if ($comment->children) }}
+                {{ Comment\Lib\Helper::getChildren($comment->children) }}
+            {{ endif }}
+        {{ endloop }}
+    </ul><!-- end of comments_wrapper -->
+
+    {{ if (isset($pagination)) }}
+        {{ $pagination->pager() }}
+    {{ endif }}
+{{ else }}
+    {{ if ($status == 'open') }}
+        <h3>{{ t('comment::comment.message.no_comment') }}</h3>
+    {{ endif }}
+{{ endif }}
+
+
+<script type="text/javascript">
+
+    function setParentId(value) {
+        var author_name = 'comment_' + value + '_author_name';
+        var au_name = document.getElementById(author_name).innerHTML
+        document.getElementById('parent_id').value = value;
+        document.getElementById('reply_info').innerHTML = "<i>Reply " + au_name + "'s comment.</i>";
+    }
+
+    if (typeof Jq == 'undefined') {
+        var Jq = {};
+    };
+
+    Jq.init = function() {
+        jQuery(function(){
+            $('.comment_message').each(function(){
+                var height = $(this).height();
+                if (height > 105) {
+                    $(this).height(105).css('overflow', 'hidden').after('<a href="#" class="com_read_more">( Read More )</a>');
+                };
+            });
+
+            $('.com_read_more').click(function(e){
+                e.preventDefault();
+                $(this).toggleClass('hide');
+                if ($(this).hasClass('hide')) {
+                    $(this).siblings('.comment_message').css('height', 'auto');
+                    $(this).text('( Hide )');
+                } else {
+                    $(this).siblings('.comment_message').css('height', '105px');
+                    $(this).text('( Read More )');
+                }
+
+            });
+
+        });
+    }
+
+    /*
+    Code Snippet from http://css-tricks.com/snippets/jquery/load-jquery-only-if-not-present/
+    Credited to http://css-tricks.com/
+    */
+
+    // Only do anything if jQuery isn't defined
+    if (typeof jQuery == 'undefined') {
+
+        function getScript(url, success) {
+
+            var script = document.createElement('script');
+                script.src = url;
+
+            var head = document.getElementsByTagName('head')[0],
+            done = false;
+
+            // Attach handlers for all browsers
+            script.onload = script.onreadystatechange = function() {
+
+                if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) {
+
+                done = true;
+
+                    // callback function provided as param
+                    success();
+
+                    script.onload = script.onreadystatechange = null;
+                    head.removeChild(script);
+
+                };
+
+            };
+
+            head.appendChild(script);
+
+        };
+
+        getScript('{{ GLOBAL_URL }}assets/js/jquery.min.js', function() {
+
+            if (typeof jQuery=='undefined') {
+
+                console.log("still not loaded jQuery");
+                // Super failsafe - still somehow failed...
+
+            } else {
+
+                console.log("jQuery loaded!");
+
+                Jq.init();
+
+            }
+
+        });
+
+    } else { // jQuery was already loaded
+        Jq.init();
+    };
+
+</script>
+{{ endif }}
