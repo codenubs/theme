@@ -81,7 +81,7 @@ p, a { font-size: 100%; }
     margin: 3px 0 0 0;
 }
 #logo a {
-    background: url('../img/logo.png') top left no-repeat;
+    background: url('../img/logo.svg') top left no-repeat;
     display: block;
     width: 140px;
     height: 90px;
@@ -362,6 +362,9 @@ p, a { font-size: 100%; }
 #social a {
     padding: 0 15px;
     color: #fff;
+}
+.pocket-btn {
+    display: inline-block;
 }
 
 /* ===== Second Footer ===== */
