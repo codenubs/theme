@@ -75,6 +75,19 @@ p, a { font-size: 100%; }
     width: 100%;
     background: #fff;
 }
+
+/* Logo */
+#logo h1 {
+    margin: 3px 0 0 0;
+}
+#logo a {
+    background: url('../img/logo.png') top left no-repeat;
+    display: block;
+    width: 140px;
+    height: 90px;
+    text-indent: -99999px;
+}
+
 /* Navigation */
 .nav:before, .nav:after{ content: " "; display: table; }
 .nav:after{ clear:both; }
