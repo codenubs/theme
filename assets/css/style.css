@@ -162,6 +162,12 @@ p, a { font-size: 100%; }
     background: #fff;
     top: -70px;
 }
+
+.author .gravatar {
+    width: 100%;
+    height: 100%;
+}
+
 .blog-body {
     padding: 15px 40px;
 }
