@@ -11,10 +11,6 @@
 
         {{ endif }}
     </section> <!-- end of featured-image -->
-        
-    <div class="author absolute">
-        {{ $blog->author->profileImage(300) }}
-    </div> <!-- end of author absolute -->
 
     <article id="blog">
         
@@ -56,6 +52,16 @@
         </section> <!-- end of blog-body -->
 
         {{ include:social }}
+
+        <div class="single-author clearfix">
+            <div class="author left">
+                {{ $blog->author->profileImage(300) }}                
+            </div> <!-- end of author -->
+            <div class="author-info left">
+                <h3>{{ $blog->author_name }}</h3>
+                <p><a href="{{ $blog->author_url }}">Read all posts written by author.</a></p>
+            </div>
+        </div>
 
         <section id="blog-comment">
             {{ if (\Module::isEnabled('comment')) }}
